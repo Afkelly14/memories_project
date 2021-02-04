@@ -1,38 +1,43 @@
-import { Mongoose } from 'mongoose';
-import PostMessage from '../models/postMessage.js'
+import  Mongoose  from "mongoose";
+import PostMessage from "../models/postMessage.js";
 
 //callback function has try/catch block
 
 export const getPosts = async (req, res) => {
-    try {
-        const postMessages = await PostMessage.find();
+  try {
+    const postMessages = await PostMessage.find();
 
-        console.log(postMessages);
+    console.log(postMessages);
 
-        res.status(200).json(postMessages);
-    } catch(error) {
-        res.status(404).json({ message: error.message })
-    }
-}
+    res.status(200).json(postMessages);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 export const createPosts = async (req, res) => {
-    const post = req.body;
+  const post = req.body;
 
-    const newPost = new PostMessage(post);
-    try {
-        await newPost.save();
+  const newPost = new PostMessage(post);
+  try {
+    await newPost.save();
 
-        res.status(201).json(newPost);
-    } catch (error) {
-        res.status(409).json({ message: error.message })
-    }
-}
+    res.status(201).json(newPost);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
 
 export const updatePost = async (req, res) => {
-    const { id: _id } = req.params;
-    const post = req.body;
+  const { id: _id } = req.params;
+  const post = req.body;
 
-    if(Mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID')
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that ID");
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
-}
+  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {
+    new: true,
+  });
+
+  res.json(updatePost);
+};

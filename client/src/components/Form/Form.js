@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import useStyles from "./styles";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
-import { createPost } from "../../actions/posts";
+import { useDispatch, useSelector} from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
 
-const Form = () => {
+
+//Get the current id of the post we want to change
+
+const Form = ({ currentId, setCurrentId }) => {
+ 
+  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -16,9 +21,18 @@ const Form = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  //populate values of the form to change - when post value changes run this
+  useEffect(() => {
+    if(post) setPostData(post);
+  }, [post])
+
   //once user submits, we want to send the data
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(currentId) {
+      dispatch(updatePost(currentId, postData));
+    }
 
     dispatch(createPost(postData));
   };
