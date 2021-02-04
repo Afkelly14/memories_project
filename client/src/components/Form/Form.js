@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import useStyles from "./styles";
 import FileBase from "react-file-base64";
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../actions/posts';
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -12,20 +14,29 @@ const Form = () => {
     selectedFile: "",
   });
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
-  const clear = () => {};
+  //once user submits, we want to send the data
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  
+    dispatch(createPost(postData));
+  };
+  const clear = () => {
+
+
+
+  };
+
   return (
     <Paper className={classes.paper}>
       <form
         autoComplete="off"
         noValidate
-        className={classes.form}
+        className={`${classes.root} $${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a memory</Typography>
+        <Typography variant="h6">Create a memory</Typography>
         <TextField
           name="creator"
           variant="outlined"
