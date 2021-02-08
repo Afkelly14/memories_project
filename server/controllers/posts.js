@@ -1,4 +1,5 @@
-import  Mongoose  from "mongoose";
+import  mongoose  from "mongoose";
+import Post from "../../client/src/components/Posts/Post/Post.js";
 import PostMessage from "../models/postMessage.js";
 
 //callback function has try/catch block
@@ -39,5 +40,17 @@ export const updatePost = async (req, res) => {
     new: true,
   });
 
-  res.json(updatePost);
+  res.json(updatedPost);
 };
+
+export const deletePost = async (req,res) => {
+  const { id } = req.params;
+
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that ID");
+
+  await PostMessage.findByIdAndRemove(id);
+
+  res.json({ message: 'Post deleted successfully' })
+}

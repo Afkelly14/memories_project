@@ -14,12 +14,12 @@ export const getPosts = () => async (dispatch) => {
 };
 
 // Action to create the post
-export const createPost = (post) => async (disptach) => {
+export const createPost = (post) => async (dispatch) => {
   try {
     //make post API request to backend server
     const { data } = await api.createPost(post);
 
-    disptach({ type: "CREATE", payload: data });
+    dispatch({ type: "CREATE", payload: data });
   } catch (error) {
     console.log(error);
   }
@@ -32,6 +32,17 @@ export const updatePost = (id, post) => async (dispatch) => {
 
     dispatch({ type: "UPDATE", payload: data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
+
+//action to delete post
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+
+    dispatch({ type: 'DELETE', payload: id })
+  } catch (error) {
+    console.log(error);
+  }
+}
