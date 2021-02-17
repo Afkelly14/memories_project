@@ -4,7 +4,7 @@ import { getPosts, createPosts, updatePost, deletePost } from "../controllers/po
 
 const router = express.Router();
 
-//https://localhost:5000/posts
+
 router.get("/", getPosts);
 router.post("/", createPosts);
 //patch used to update existing documents - need id to know what to edit
