@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import makeStyles from "./styles";
 import {
   Card,
@@ -9,13 +9,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 
 import { likePost, deletePost } from "../../../actions/posts";
-
 
 const Post = ({ post, setCurrentId }) => {
   const classes = makeStyles();
@@ -47,12 +46,16 @@ const Post = ({ post, setCurrentId }) => {
           {post.tags.map((tag) => `#${tag} `)}
         </Typography>
         <CardContent>
-          <Typography className={classes.title} variant="h5" component="p" >
+          <Typography className={classes.title} variant="h5" component="p">
             {post.message}
           </Typography>
         </CardContent>
         <CardActions className={classes.cardActions}>
-          <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => dispatch(likePost(post._id))}
+          >
             <ThumbUpAltIcon fontSize="small" />
             Like
             {post.likeCount}

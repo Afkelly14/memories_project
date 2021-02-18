@@ -43,7 +43,7 @@ const Form = ({ currentId, setCurrentId }) => {
       <form
         autoComplete="off"
         noValidate
-        className={`${classes.root} $${classes.form}`}
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{ currentId ? 'Editing' : 'Creating' } a Memory</Typography>
@@ -87,12 +87,12 @@ const Form = ({ currentId, setCurrentId }) => {
           <FileBase
             type="file"
             multiple={false}
-            onDone={({ base64 }) => ({ ...postData, selectedFile: base64 })}
+            onDone={({base64}) => ({ ...postData, selectedFile: base64 })}
           />
         </div>
         <Button
           className={classes.buttonSubmit}
-          vairant="contained"
+          variant="contained"
           color="primary"
           size="large"
           type="submit"
@@ -101,7 +101,7 @@ const Form = ({ currentId, setCurrentId }) => {
           Submit
         </Button>
         <Button
-          vairant="contained"
+          variant="contained"
           color="secondary"
           size="small"
           onClick={clear}
