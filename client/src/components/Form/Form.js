@@ -16,7 +16,7 @@ const Form = ({ currentId, setCurrentId }) => {
     title: "",
     message: "",
     tags: "",
-    selectedFile: "",
+    selectedFile: ""
   });
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -26,17 +26,26 @@ const Form = ({ currentId, setCurrentId }) => {
     if(post) setPostData(post);
   }, [post])
 
+  //clear the data
+  const clear = () => {
+    setCurrentId(0);
+    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
+  };
+
   //once user submits, we want to send the data
-  const handleSubmit = (e) => {
+  //create post or update post
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(currentId) {
-      dispatch(updatePost(currentId, postData));
-    }
-
-    dispatch(createPost(postData));
-  };
-  const clear = () => {};
+    if(currentId === 0) {
+      dispatch(createPost(postData));
+      clear();
+  } else {
+    dispatch(updatePost(currentId, postData));
+    clear();
+  }
+}
+  
 
   return (
     <Paper className={classes.paper}>
@@ -86,8 +95,9 @@ const Form = ({ currentId, setCurrentId }) => {
         <div className={classes.fileInput}>
           <FileBase
             type="file"
-            multiple={false}
-            onDone={({base64}) => ({ ...postData, selectedFile: base64 })}
+            multiple={ false }
+            onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
+         
           />
         </div>
         <Button
