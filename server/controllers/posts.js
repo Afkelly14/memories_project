@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Post from "../../client/src/components/Posts/Post/Post.js";
 import PostMessage from "../models/postMessage.js";
 
 //callback function has try/catch block

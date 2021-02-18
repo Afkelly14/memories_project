@@ -13,9 +13,16 @@ app.use(cors());
 
 app.use("/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello memories API")
+})
+
+const PORT = process.env.PORT || 5000;
+
 const CONNECTION_URL =
   "mongodb+srv://123:123@cluster0.hdibf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const PORT = process.env.PORT ;
+
+
 
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
